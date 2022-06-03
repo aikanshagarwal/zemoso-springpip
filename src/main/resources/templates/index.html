@@ -1,0 +1,37 @@
+<!DocType HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+        <title>Job Search Portal</title>
+
+    </head>
+
+    <body>
+    <hr>
+    <h5 class="display-5"><center>Welcome to Job Portal</center></h5>
+    <hr><br>
+    <div class="container">
+
+        <br>
+        <center>
+        <a th:href="@{/job/list}"
+           class="btn btn-info btn-sm">Job List</a>
+        <p><br><br>
+            <a href="javascript: document.logoutForm.submit()" role="menuitem" class="btn btn-danger btn-sm">Logout</a>
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out"/>
+            </form>
+        </p>
+        </center>
+
+    </div>
+
+    </body>
+
+
+</html>

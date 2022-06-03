@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Job</title>
+
+</head>
+
+<body>
+
+<div class="container">
+    <hr>
+    <h3>Job Form</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Job</p>
+
+    <form action="#" th:action="@{/job/save}" th:object="${jobs}" method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{title}"
+               class="form-control mb-3 col-4" placeholder="Title">
+        <span style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
+
+        <input type="text" th:field="*{location}"
+               class="form-control mb-3 col-4" placeholder="Location">
+        <span style="color:red" th:if="${#fields.hasErrors('location')}"  th:errors="*{location}">Location Error</span>
+
+        <input type="number" th:field="*{pay}"
+               class="form-control mb-3 col-4" placeholder="Pay">
+        <span style="color:red" th:if="${#fields.hasErrors('pay')}" th:errors="*{pay}">Pay Error</span>
+
+        <ul>
+            <li th:each="tempSkill : ${skills}">
+                <input type="checkbox"
+                       th:field="*{skills}"
+                       th:value="${tempSkill.id}" />
+                <label
+                        th:for="${#ids.prev('skills')}"
+                        th:text="${tempSkill.name}"></label>
+            </li>
+        </ul>
+
+        <br><br>
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/job/list}">Back to Job List</a>
+
+</div>
+
+</body>
+
+</html>

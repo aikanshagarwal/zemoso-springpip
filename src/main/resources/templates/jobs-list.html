@@ -1,0 +1,73 @@
+<!DocType HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Jobs</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+
+    <hr>
+    <h3>Job List</h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempJobs:${jobs}">
+            <td th:text="${tempJobs.title}"/>
+
+            <td sec:authorize="hasAnyRole('ROLE_RECRUITER','ROLE_SEEKER')">
+
+                <a th:href="@{/job/showJob(jobId=${tempJobs.id})}"
+                   class="btn btn-info btn-sm">
+                    View
+                </a>
+                <a sec:authorize="hasRole('ROLE_RECRUITER')" th:href="@{/job/showFormForUpdate(jobId=${tempJobs.id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+                <a sec:authorize="hasRole('ROLE_RECRUITER')" th:href="@{/job/delete(jobId=${tempJobs.id})}"
+                   class="btn btn-danger btn-sm" onclick="if(!confirm('Are you sure want to delete this job?')) return false;">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+    <hr><br>
+
+    <span sec:authorize="hasRole('ROLE_RECRUITER')">
+    <a th:href="@{/job/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Add a Job</a>
+    </span>
+    <span sec:authorize="hasAnyRole('ROLE_RECRUITER','ROLE_SEEKER')">
+    <a th:href="@{/job/showJobBySkills}" class="btn btn-primary btn-sm mb-3">Filter jobs by skills</a>
+    </span>
+    <br>
+    <a href="javascript: document.logoutForm.submit()" role="menuitem" class="btn btn-danger btn-sm">Logout</a>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
+
+</div>
+
+</body>
+
+</html>
