@@ -25,18 +25,17 @@
 
         <input type="hidden" th:field="*{id}"/>
 
+        <p>Title:</p>
         <input type="text" th:field="*{title}"
-               class="form-control mb-3 col-4" placeholder="Title">
+               class="form-control mb-3 col-4">
         <span style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</span>
 
-        <input type="text" th:field="*{location}"
-               class="form-control mb-3 col-4" placeholder="Location">
-        <span style="color:red" th:if="${#fields.hasErrors('location')}"  th:errors="*{location}">Location Error</span>
-
+        <p>Pay:</p>
         <input type="number" th:field="*{pay}"
                class="form-control mb-3 col-4" placeholder="Pay">
         <span style="color:red" th:if="${#fields.hasErrors('pay')}" th:errors="*{pay}">Pay Error</span>
 
+        <p>Skills:</p>
         <ul>
             <li th:each="tempSkill : ${skills}">
                 <input type="checkbox"
@@ -45,6 +44,18 @@
                 <label
                         th:for="${#ids.prev('skills')}"
                         th:text="${tempSkill.name}"></label>
+            </li>
+        </ul>
+
+        <p>Locations:</p>
+        <ul>
+            <li th:each="tempLocation : ${locations}">
+                <input type="checkbox"
+                       th:field="*{locations}"
+                       th:value="${tempLocation.id}" />
+                <label
+                        th:for="${#ids.prev('locations')}"
+                        th:text="${tempLocation.name}"></label>
             </li>
         </ul>
 

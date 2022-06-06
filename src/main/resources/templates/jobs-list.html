@@ -18,6 +18,32 @@
     <h3>Job List</h3>
     <hr>
 
+    <p>Filter Jobs by Location :</p>
+    <span>
+        <form th:action="@{/job/list}" method= "get">
+            <input id ="txtSearch" type = "text" name ="location" placeholder="Enter the location here">
+            <button type = "submit">Go</button>
+        </form>
+    </span>
+    <br>
+    <p>Filter Jobs by Skill :</p>
+    <span>
+        <form th:action="@{/job/list}" method= "get">
+            <input id ="txtSearch2" type = "text" name ="skill" placeholder="Enter the skill here">
+            <button type = "submit">Go</button>
+        </form>
+    </span>
+    <br>
+    <p>Filter Jobs by Skill and Location:</p>
+    <span>
+        <form th:action="@{/job/list}" method= "get">
+            <input id ="txtSearch3" type = "text" name ="skill2" placeholder="Enter the skill here">
+            <input id ="txtSearch4" type = "text" name ="location2" placeholder="Enter the location here">
+            <button type = "submit">Go</button>
+        </form>
+    </span>
+    <hr>
+
     <table class="table table-bordered table-striped">
 
         <thead class="table-dark">
@@ -38,10 +64,6 @@
                    class="btn btn-info btn-sm">
                     View
                 </a>
-                <a sec:authorize="hasRole('ROLE_RECRUITER')" th:href="@{/job/showFormForUpdate(jobId=${tempJobs.id})}"
-                   class="btn btn-info btn-sm">
-                    Update
-                </a>
                 <a sec:authorize="hasRole('ROLE_RECRUITER')" th:href="@{/job/delete(jobId=${tempJobs.id})}"
                    class="btn btn-danger btn-sm" onclick="if(!confirm('Are you sure want to delete this job?')) return false;">
                     Delete
@@ -56,10 +78,13 @@
 
     <span sec:authorize="hasRole('ROLE_RECRUITER')">
     <a th:href="@{/job/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Add a Job</a>
+        <br>
     </span>
-    <span sec:authorize="hasAnyRole('ROLE_RECRUITER','ROLE_SEEKER')">
-    <a th:href="@{/job/showJobBySkills}" class="btn btn-primary btn-sm mb-3">Filter jobs by skills</a>
+    <span sec:authorize="hasRole('ROLE_SEEKER')">
+       <a th:href="@{/job/showSavedJobs}" class="btn btn-primary btn-sm mb-3">Show saved jobs</a>
+        <br>
     </span>
+    <a th:href="@{/job/list}" class="btn btn-primary btn-sm mb-3">Show all jobs</a>
     <br>
     <a href="javascript: document.logoutForm.submit()" role="menuitem" class="btn btn-danger btn-sm">Logout</a>
     <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">

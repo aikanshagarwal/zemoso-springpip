@@ -1,10 +1,9 @@
-package com.example.springassignment2.SpringAssignment2.Service;
+package com.example.springassignment2.SpringAssignment2.service;
 
-import com.example.springassignment2.SpringAssignment2.Dao.JobRepository;
-import com.example.springassignment2.SpringAssignment2.Dao.UserRepository;
-import com.example.springassignment2.SpringAssignment2.Entity.Job;
-import com.example.springassignment2.SpringAssignment2.Entity.User;
+import com.example.springassignment2.SpringAssignment2.dao.JobRepository;
+import com.example.springassignment2.SpringAssignment2.entity.Job;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,8 +58,37 @@ public class JobServiceImpl implements JobService
         jobRepository.deleteById(theId);
     }
 
+
     @Override
-    public List<Job> findJobsBySkillsId(int[] theIds) {
-        return jobRepository.findJobsBySkillsId(theIds);
+    public List<Job> findByLocation(String location) {
+        return jobRepository.findByLocation(location);
     }
+
+    @Override
+    public List<Job> findBySkill(String skill) {
+        return jobRepository.findBySkill(skill);
+    }
+
+    @Override
+    public List<Job> findBySkillAndLocation(String skill2, String location2) {
+        return jobRepository.findBySkillAndLocation(skill2,location2);
+    }
+
+    @Override
+    public List<Job> showSavedJobs(String userName) {
+        return jobRepository.showSavedJobs(userName);
+    }
+
+    @Override
+    public void saveAJob(int jobId, String userName) {
+        jobRepository.saveAJob(jobId,userName);
+
+    }
+
+    @Override
+    public void unsaveAJob(int jobId, String userName) {
+        jobRepository.unsaveAJob(jobId,userName);
+    }
+
+
 }

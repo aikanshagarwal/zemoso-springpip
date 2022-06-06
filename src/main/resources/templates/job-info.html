@@ -33,51 +33,45 @@
         <tbody>
         <tr th:each="tempJobs:${jobs}">
             <td th:text="${tempJobs.title}"/>
-            <td th:text="${tempJobs.location}"/>
+            <td>
+            <span th:each="tempLocations,iterStat:${locations}"
+                  th:text="${tempLocations.name} + ${!iterStat.last ? ', ' : ''}"></span>
+            </td>
             <td th:text="${tempJobs.pay}"/>
             <td>
             <span th:each="tempSkills,iterStat:${skills}"
                        th:text="${tempSkills.name} + ${!iterStat.last ? ', ' : ''}"></span>
             </td>
 
-           <!-- <td sec:authorize="hasRole('ROLE_SEEKER')">
-                <a th:href="@{/models/showModels(manufacturerId=${tempManufacturers.id})}"
+           <td >
+                <a sec:authorize="hasRole('ROLE_SEEKER')" th:href="@{/job/saveAJob(jobId=${tempJobs.id})}"
                    class="btn btn-info btn-sm">
                     Save
                 </a>
-                <a th:href="@{/manufacturer/showWebsite(manufacturerId=${tempManufacturers.id})}"
-                   class="btn btn-info btn-sm">
-                    Unsave
-                </a>
-            </td>
-            -->
+               <a sec:authorize="hasRole('ROLE_SEEKER')" th:href="@{/job/unsaveAJob(jobId=${tempJobs.id})}"
+                  class="btn btn-info btn-sm">
+                   Unsave
+               </a>
+               <a sec:authorize="hasRole('ROLE_RECRUITER')" th:href="@{/job/delete(jobId=${tempJobs.id})}"
+                  class="btn btn-danger btn-sm" onclick="if(!confirm('Are you sure want to delete this job?')) return false;">
+                   Delete
+               </a>
+               <a sec:authorize="hasAnyRole('ROLE_RECRUITER','ROLE_SEEKER')"  th:href="@{/commute/showCommute(jobId=${tempJobs.id})}"
+                  class="btn btn-info btn-sm">
+                   Commute Options
+               </a>
 
-            <td sec:authorize="hasRole('ROLE_RECRUITER')">
 
-                <a th:href="@{/job/showFormForUpdate(jobId=${tempJobs.id})}"
-                   class="btn btn-info btn-sm">
-                    Update
-                </a>
-                <a th:href="@{/job/delete(jobId=${tempJobs.id})}"
-                   class="btn btn-danger btn-sm" onclick="if(!confirm('Are you sure want to delete this job?')) return false;">
-                    Delete
-                </a>
             </td>
 
-           <!-- <td sec:authorize="hasAnyRole('ROLE_RECRUITER','ROLE_SEEKER)">
-
-                <a th:href="@{/job/showJob(jobId=${tempJobs.id})}"
-                   class="btn btn-info btn-sm">
-                    View
-                </a>
-            </td> -->
 
         </tr>
         </tbody>
 
     </table>
     <hr><br>
-
+    <a th:href="@{/job/list}" class="btn btn-primary btn-sm mb-3">Show all jobs</a>
+    <br>
     <a href="javascript: document.logoutForm.submit()" role="menuitem" class="btn btn-danger btn-sm">Logout</a>
     <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
         <input hidden type="submit" value="Sign Out"/>

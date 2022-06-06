@@ -1,6 +1,6 @@
-package com.example.springassignment2.SpringAssignment2.Dao;
+package com.example.springassignment2.SpringAssignment2.dao;
 
-import com.example.springassignment2.SpringAssignment2.Entity.Skill;
+import com.example.springassignment2.SpringAssignment2.entity.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

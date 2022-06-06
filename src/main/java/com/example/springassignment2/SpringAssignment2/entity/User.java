@@ -1,8 +1,7 @@
-package com.example.springassignment2.SpringAssignment2.Entity;
+package com.example.springassignment2.SpringAssignment2.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.List;
 
 
 @Data
@@ -12,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User
 {
     @Id
@@ -38,9 +37,4 @@ public class User
     @Column(name="email")
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "job_user",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="job_id"))
-    private List<Job> jobs;
 }

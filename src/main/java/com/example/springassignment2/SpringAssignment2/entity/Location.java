@@ -1,7 +1,6 @@
-package com.example.springassignment2.SpringAssignment2.Entity;
+package com.example.springassignment2.SpringAssignment2.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="skills")
-public class Skill
+@Table(name="location")
+public class Location
 {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class Skill
     @Column(name="name")
     private String name;
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany(mappedBy = "locations")
     private List<Job> jobs;
 }
 

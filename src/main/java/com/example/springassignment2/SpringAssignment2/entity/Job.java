@@ -1,4 +1,4 @@
-package com.example.springassignment2.SpringAssignment2.Entity;
+package com.example.springassignment2.SpringAssignment2.entity;
 
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="jobs")
+@Table(name="job")
 public class Job
 {
     @Id
@@ -27,24 +27,23 @@ public class Job
     @Column(name="title")
     private String title;
 
-    @NotEmpty(message="must not be empty")
-    @Column(name="location")
-    private String location;
-
     @Min(value=1, message="must be equal to or greater than 1")
     @Column(name="pay")
     private long pay;
-
-    @ManyToMany
-    @JoinTable(name = "job_user",
-            joinColumns = @JoinColumn(name="job_id"),
-            inverseJoinColumns = @JoinColumn(name="user_id"))
-    private List<User> users;
 
     @ManyToMany
     @JoinTable(name = "job_skill",
             joinColumns = @JoinColumn(name="job_id"),
             inverseJoinColumns = @JoinColumn(name="skill_id"))
     private List<Skill> skills;
+
+    @ManyToMany
+    @JoinTable(name = "job_location",
+            joinColumns = @JoinColumn(name="job_id"),
+            inverseJoinColumns = @JoinColumn(name="location_id"))
+    private List<Location> locations;
+
+    @OneToMany(mappedBy = "job",cascade = CascadeType.ALL)
+    private List<Commute> commutes;
 
 }
