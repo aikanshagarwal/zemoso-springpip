@@ -44,6 +44,8 @@ public class CommuteController implements WebMvcConfigurer
         //add to the spring model
         theModel.addAttribute("job",theJobs);
 
+        logger.info("...Calling commute-form for adding a commute...");
+
 
         return "commute-form";
     }
@@ -61,6 +63,8 @@ public class CommuteController implements WebMvcConfigurer
 
         //add to the spring model
         theModel.addAttribute("job",theJobs);
+
+        logger.info("...Calling commute-form for updating a commute...");
 
         //send over to our form
         return "commute-form";
@@ -81,7 +85,7 @@ public class CommuteController implements WebMvcConfigurer
         //save the model
         commuteService.save(theCommute);
 
-        logger.info("Saving a new model and redirecting to models list.");
+        logger.info("...Saving the commute option provided and redirecting to job list...");
 
         //use a redirect to prevent duplicate submissions
         return "redirect:/job/list";
@@ -93,7 +97,7 @@ public class CommuteController implements WebMvcConfigurer
 
         commuteService.deleteById(theId);
 
-        logger.info("Deleting a model and redirecting to models list.");
+        logger.info("...Deleting a commute option and redirecting to job list...");
 
         return "redirect:/job/list";
     }
@@ -104,7 +108,7 @@ public class CommuteController implements WebMvcConfigurer
         List<Commute> theCommute = commuteService.findByJobId(theId);
         theModel.addAttribute("commute",theCommute);
 
-        logger.info("Showing models given a particular manufacturer.");
+        logger.info("...Showing commute options for a given job...");
 
         return "commute-list";
     }

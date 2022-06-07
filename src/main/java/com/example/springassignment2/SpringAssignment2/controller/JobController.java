@@ -34,28 +34,30 @@ public class JobController implements WebMvcConfigurer
         jobService = theJobService;
         skillService = theSkillService;
         locationService = theLocationService;
-
     }
 
     @GetMapping("/list")
     public String listOfJobs(Model theModel,String location,String skill,String skill2,String location2)
     {
 
-        logger.info("...Getting the list of jobs...");
         if(location != null)
         {
+            logger.info("...Getting the list of jobs based on location...");
             theModel.addAttribute("jobs",jobService.findByLocation(location));
         }
         else if(skill !=null)
         {
+            logger.info("...Getting the list of jobs based on skill...");
             theModel.addAttribute("jobs",jobService.findBySkill(skill));
         }
         else if(skill2!=null && location2!=null)
         {
+            logger.info("...Getting the list of jobs based on skill and location...");
             theModel.addAttribute("jobs",jobService.findBySkillAndLocation(skill2,location2));
         }
         else
         {
+            logger.info("...Getting the list of all jobs...");
             theModel.addAttribute("jobs",jobService.findAll());
         }
 
@@ -73,7 +75,7 @@ public class JobController implements WebMvcConfigurer
         theModel.addAttribute("skills",theSkills);
         theModel.addAttribute("locations",theLocations);
 
-        logger.info("...getting a job based on the id provided...");
+        logger.info("...getting a job and it's information based on the id provided...");
 
         return "job-info";
     }
@@ -83,6 +85,7 @@ public class JobController implements WebMvcConfigurer
     {
         jobService.saveAJob(jobId ,authentication.getName());
         theModel.addAttribute("jobs",jobService.findAll());
+        logger.info("...Saving a job for the logged in user...");
         return "jobs-list";
     }
 
@@ -91,6 +94,7 @@ public class JobController implements WebMvcConfigurer
     {
         jobService.unsaveAJob(jobId ,authentication.getName());
         theModel.addAttribute("jobs",jobService.findAll());
+        logger.info("...Unsaving a job for the logged in user...");
         return "jobs-list";
     }
 
@@ -98,6 +102,7 @@ public class JobController implements WebMvcConfigurer
     public String showSavedJobs(Authentication authentication,Model theModel)
     {
         theModel.addAttribute("jobs",jobService.showSavedJobs(authentication.getName()));
+        logger.info("...Showing saved jobs for the logged in user...");
         return "jobs-list";
     }
 
