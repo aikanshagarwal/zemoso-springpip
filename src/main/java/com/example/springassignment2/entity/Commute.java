@@ -3,6 +3,7 @@ package com.example.springassignment2.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Setter
@@ -19,6 +20,7 @@ public class Commute
     @Column(name="id")
     private int id;
 
+    @NotEmpty
     @Column(name="`option`")
     private String option;
 

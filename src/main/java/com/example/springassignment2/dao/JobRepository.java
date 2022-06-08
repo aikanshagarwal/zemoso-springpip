@@ -27,7 +27,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
     List<Job> showSavedJobs(@Param("userName") String userName);
 
     @Modifying
-    @Query(value = "INSERT into job_user (job_id,username) VALUES (:jobId,:userName)", nativeQuery = true)
+    @Query(value = "INSERT IGNORE into job_user (job_id,username) VALUES (:jobId,:userName)", nativeQuery = true)
     @Transactional
     void saveAJob(@Param("jobId") int jobId, @Param("userName") String userName);
 

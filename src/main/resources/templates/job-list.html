@@ -21,7 +21,7 @@
     <p>Filter Jobs by Location :</p>
     <span>
         <form th:action="@{/job/list}" method= "get">
-            <input id ="txtSearch" type = "text" name ="location" placeholder="Enter the location here">
+            <input id ="txtSearch" required type = "text" name ="location" placeholder="Enter the location here">
             <button type = "submit">Go</button>
         </form>
     </span>
@@ -29,7 +29,7 @@
     <p>Filter Jobs by Skill :</p>
     <span>
         <form th:action="@{/job/list}" method= "get">
-            <input id ="txtSearch2" type = "text" name ="skill" placeholder="Enter the skill here">
+            <input id ="txtSearch2" required type = "text" name ="skill" placeholder="Enter the skill here">
             <button type = "submit">Go</button>
         </form>
     </span>
@@ -37,8 +37,8 @@
     <p>Filter Jobs by Skill and Location:</p>
     <span>
         <form th:action="@{/job/list}" method= "get">
-            <input id ="txtSearch3" type = "text" name ="skill2" placeholder="Enter the skill here">
-            <input id ="txtSearch4" type = "text" name ="location2" placeholder="Enter the location here">
+            <input id ="txtSearch3" required type = "text" name ="skill2" placeholder="Enter the skill here">
+            <input id ="txtSearch4" required type = "text" name ="location2" placeholder="Enter the location here">
             <button type = "submit">Go</button>
         </form>
     </span>

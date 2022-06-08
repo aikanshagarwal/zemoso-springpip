@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <!-- Required meta tags -->
@@ -45,6 +46,7 @@
                         th:for="${#ids.prev('skills')}"
                         th:text="${tempSkill.name}"></label>
             </li>
+            <span style="color:red" th:if="${#fields.hasErrors('skills')}" th:errors="*{skills}">Skills Error</span>
         </ul>
 
         <p>Locations:</p>
@@ -53,10 +55,12 @@
                 <input type="checkbox"
                        th:field="*{locations}"
                        th:value="${tempLocation.id}" />
+
                 <label
                         th:for="${#ids.prev('locations')}"
                         th:text="${tempLocation.name}"></label>
             </li>
+            <span style="color:red" th:if="${#fields.hasErrors('locations')}" th:errors="*{locations}">Locations Error</span>
         </ul>
 
         <br><br>

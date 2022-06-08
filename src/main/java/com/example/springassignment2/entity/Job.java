@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -31,12 +32,14 @@ public class Job
     @Column(name="pay")
     private long pay;
 
+    @NotEmpty(message="atleast one must be ticked")
     @ManyToMany
     @JoinTable(name = "job_skill",
             joinColumns = @JoinColumn(name="job_id"),
             inverseJoinColumns = @JoinColumn(name="skill_id"))
     private List<Skill> skills;
 
+    @NotEmpty(message="atleast one must be ticked")
     @ManyToMany
     @JoinTable(name = "job_location",
             joinColumns = @JoinColumn(name="job_id"),

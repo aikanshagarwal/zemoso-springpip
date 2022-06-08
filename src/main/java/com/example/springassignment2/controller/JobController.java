@@ -136,9 +136,10 @@ public class JobController implements WebMvcConfigurer
         {
             List<Skill> theSkill = skillService.findAll();
             List<Location> theLocation = locationService.findAll();
+            theModel.addAttribute("jobs", theJob);
             theModel.addAttribute("skills",theSkill);
             theModel.addAttribute("locations",theLocation);
-            return "jobs-form";
+            return "job-form";
         }
 
         //save the job
@@ -159,4 +160,11 @@ public class JobController implements WebMvcConfigurer
 
         return "redirect:/job/list";
     }
+
+    @GetMapping("/access-denied")
+    public String accessDenied()
+    {
+        return "access-denied";
+    }
+
 }
