@@ -4,6 +4,7 @@ import com.example.springassignment2.dao.CommuteRepository;
 
 import com.example.springassignment2.entity.Commute;
 
+import com.example.springassignment2.exception.JobNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class CommuteServiceImpl implements CommuteService
         }
         else
         {
-            throw new RuntimeException("Did not find commute with id - " + theId);
+            throw new JobNotFoundException("Could not find commute with id - " + theId);
         }
         return theCommute;
     }
