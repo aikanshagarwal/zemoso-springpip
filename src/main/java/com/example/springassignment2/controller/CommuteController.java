@@ -20,6 +20,8 @@ import java.util.List;
 @RequestMapping("/commute")
 public class CommuteController implements WebMvcConfigurer
 {
+    static final String COMMUTE = "commute";
+    static final String COMMUTEFORM = "commute-form";
     Logger logger = LoggerFactory.getLogger(CommuteController.class);
     private CommuteService commuteService;
     private JobService jobService;
@@ -34,10 +36,10 @@ public class CommuteController implements WebMvcConfigurer
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model theModel) {
 
-        // create model attribute to bind form data
+        // create commute attribute to bind form data
         Commute theCommute = new Commute();
 
-        theModel.addAttribute("commute", theCommute);
+        theModel.addAttribute(COMMUTE, theCommute);
 
         List<Job> theJobs =  jobService.findAll();
 
@@ -46,18 +48,17 @@ public class CommuteController implements WebMvcConfigurer
 
         logger.info("...Calling commute-form for adding a commute...");
 
-
-        return "commute-form";
+        return COMMUTEFORM;
     }
 
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("commuteId") int theId , Model theModel)
     {
-        //get the model from the db using the id passed
+        //get the commute from the db using the id passed
         Commute theCommute = commuteService.findById(theId);
 
-        //set model as a model attribute to prepopulate the form
-        theModel.addAttribute("commute", theCommute);
+        //set commute as a model attribute to prepopulate the form
+        theModel.addAttribute(COMMUTE, theCommute);
 
         List<Job> theJobs =  jobService.findAll();
 
@@ -67,7 +68,7 @@ public class CommuteController implements WebMvcConfigurer
         logger.info("...Calling commute-form for updating a commute...");
 
         //send over to our form
-        return "commute-form";
+        return COMMUTEFORM;
     }
 
     @PostMapping("/save")
@@ -79,15 +80,15 @@ public class CommuteController implements WebMvcConfigurer
 
             //add to the spring model
             theModel.addAttribute("job",theJobs);
-            return "commute-form";
+            return COMMUTEFORM;
         }
 
-        //save the model
+        //save the commute
         commuteService.save(theCommute);
 
         logger.info("...Saving the commute option provided and redirecting to job list...");
 
-        //use a redirect to prevent duplicate submissions
+        //using a redirect to prevent duplicate submissions
         return "redirect:/job/list";
     }
 
@@ -106,7 +107,7 @@ public class CommuteController implements WebMvcConfigurer
     public String listJobs(@RequestParam("jobId") int theId,Model theModel)
     {
         List<Commute> theCommute = commuteService.findByJobId(theId);
-        theModel.addAttribute("commute",theCommute);
+        theModel.addAttribute(COMMUTE,theCommute);
 
         logger.info("...Showing commute options for a given job...");
 

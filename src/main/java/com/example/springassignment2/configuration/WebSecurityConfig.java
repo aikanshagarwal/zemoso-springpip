@@ -17,8 +17,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
-
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
@@ -29,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        //restricting job seeker's access to some save/update/delete pages
+
         http.authorizeRequests()
                 .antMatchers("/job/showFormForAdd","/commute/showFormForAdd","/commute/showFormForUpdate","/job/delete","job/save","/commute/save","/commute/delete").hasRole("RECRUITER")
                 .anyRequest().authenticated()

@@ -2,7 +2,7 @@ package com.example.springassignment2.service;
 
 import com.example.springassignment2.dao.JobRepository;
 import com.example.springassignment2.entity.Job;
-import com.example.springassignment2.exception.JobNotFoundException;
+import com.example.springassignment2.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,7 @@ public class JobServiceImpl implements JobService
         else
         {
             // we didn't find the job
-            throw new JobNotFoundException("Could not find job with id - " + theId);
+            throw new NotFoundException("Could not find job with id - " + theId);
         }
 
         return theJob;
@@ -70,7 +70,8 @@ public class JobServiceImpl implements JobService
     }
 
     @Override
-    public List<Job> findBySkillAndLocation(String skill2, String location2) {
+    public List<Job> findBySkillAndLocation(String skill2, String location2)
+    {
         return jobRepository.findBySkillAndLocation(skill2,location2);
     }
 
@@ -80,15 +81,14 @@ public class JobServiceImpl implements JobService
     }
 
     @Override
-    public void saveAJob(int jobId, String userName) {
+    public void saveAJob(int jobId, String userName)
+    {
         jobRepository.saveAJob(jobId,userName);
-
     }
 
     @Override
     public void unsaveAJob(int jobId, String userName) {
         jobRepository.unsaveAJob(jobId,userName);
     }
-
 
 }

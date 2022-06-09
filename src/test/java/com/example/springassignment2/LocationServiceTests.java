@@ -27,12 +27,6 @@ class LocationServiceTests
     @Mock
     private LocationRepository locationRepository;
 
-    @Mock
-    private JobRepository jobRepository;
-
-    @InjectMocks
-    private JobServiceImpl jobService;
-
     @InjectMocks
     private LocationServiceImpl locationService;
 
@@ -59,17 +53,16 @@ class LocationServiceTests
     @DisplayName("JUnit test for saveLocation method")
     @Test
     void givenLocationObject_whenSaveLocation_thenReturnLocationObject(){
+
         // given - precondition or setup
-
         given(locationRepository.save(location)).willReturn(location);
-
         System.out.println(locationRepository);
         System.out.println(locationService);
 
         // when -  action or the behaviour that we are going test
         Location savedLocation = locationService.save(location);
-
         System.out.println(savedLocation);
+
         // then - verify the output
         assertThat(savedLocation).isNotNull();
     }
@@ -77,8 +70,8 @@ class LocationServiceTests
     @DisplayName("JUnit test for getAllLocations method")
     @Test
     void givenLocationsList_whenGetAllLocations_thenReturnLocationsList(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         Location location1 =  location.builder()
                 .id(1)
                 .name("Kolkata")
@@ -95,7 +88,7 @@ class LocationServiceTests
 
     @DisplayName("JUnit test for getLocationsByJobId method")
     @Test
-    void givenJobId_whenGetLocationsbyJobId_thenReturnLocationObject(){
+    void givenJobId_whenGetLocationsByJobId_thenReturnLocationObject(){
 
         // when
         List<Location> savedLocation = locationService.findLocationsByJobsId(1);

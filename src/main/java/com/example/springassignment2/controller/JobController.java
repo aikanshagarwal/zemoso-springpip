@@ -23,15 +23,15 @@ import java.util.List;
 @RequestMapping("/job")
 public class JobController implements WebMvcConfigurer
 {
-    final static String JOBLIST = "job-list";
-    final static String JOBINFO = "job-info";
-    final static String JOBFORM = "job-form";
+    static final String JOBLIST = "job-list";
+    static final String JOBINFO = "job-info";
+    static final String JOBFORM = "job-form";
+    static final String LOCATIONS = "locations";
+    static final String SKILLS = "skills";
     Logger logger = LoggerFactory.getLogger(JobController.class);
     private JobService jobService;
     private SkillService skillService;
     private LocationService locationService;
-
-
 
     @Autowired
     public JobController(JobService theJobService, SkillService theSkillService, LocationService theLocationService)
@@ -45,6 +45,7 @@ public class JobController implements WebMvcConfigurer
     public String listOfJobs(Model theModel,String location,String skill,String skill2,String location2)
     {
 
+        //filtering jobs based on the parameter passed
         if(location != null)
         {
             logger.info("...Getting the list of jobs based on location...");
@@ -77,8 +78,8 @@ public class JobController implements WebMvcConfigurer
         List<Location> theLocations = locationService.findLocationsByJobsId(theId);
 
         theModel.addAttribute("jobs",theJob);
-        theModel.addAttribute("skills",theSkills);
-        theModel.addAttribute("locations",theLocations);
+        theModel.addAttribute(SKILLS,theSkills);
+        theModel.addAttribute(LOCATIONS,theLocations);
 
         logger.info("...getting a job and it's information based on the id provided...");
 
@@ -88,6 +89,7 @@ public class JobController implements WebMvcConfigurer
     @GetMapping("/saveAJob")
     public String saveAJob(Authentication authentication,@RequestParam("jobId") int jobId,Model theModel)
     {
+        //using authentication.getName() to get the username of the logged in user
         jobService.saveAJob(jobId ,authentication.getName());
         theModel.addAttribute("jobs",jobService.findAll());
         logger.info("...Saving a job for the logged in user...");
@@ -123,8 +125,25 @@ public class JobController implements WebMvcConfigurer
         logger.info("...Calling jobs-form for adding a job...");
 
         theModel.addAttribute("jobs", theJob);
-        theModel.addAttribute("skills",theSkill);
-        theModel.addAttribute("locations",theLocation);
+        theModel.addAttribute(SKILLS,theSkill);
+        theModel.addAttribute(LOCATIONS,theLocation);
+
+        return JOBFORM;
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("jobId") int jobId ,Model theModel) {
+
+        // create model attribute to bind form data
+        Job theJob = jobService.findById(jobId);
+        List<Skill> theSkill = skillService.findAll();
+        List<Location> theLocation = locationService.findAll();
+
+        logger.info("...Calling jobs-form for updating a job...");
+
+        theModel.addAttribute("jobs", theJob);
+        theModel.addAttribute(SKILLS,theSkill);
+        theModel.addAttribute(LOCATIONS,theLocation);
 
         return JOBFORM;
     }
@@ -137,9 +156,9 @@ public class JobController implements WebMvcConfigurer
             List<Skill> theSkill = skillService.findAll();
             List<Location> theLocation = locationService.findAll();
             theModel.addAttribute("jobs", theJob);
-            theModel.addAttribute("skills",theSkill);
-            theModel.addAttribute("locations",theLocation);
-            return "job-form";
+            theModel.addAttribute(SKILLS,theSkill);
+            theModel.addAttribute(LOCATIONS,theLocation);
+            return JOBFORM;
         }
 
         //save the job
@@ -147,7 +166,7 @@ public class JobController implements WebMvcConfigurer
 
         logger.info("...Saving a new job and redirecting to job list...");
 
-        //use a redirect to prevent duplicate submissions
+        //using a redirect to prevent duplicate submissions
         return "redirect:/job/list";
     }
 

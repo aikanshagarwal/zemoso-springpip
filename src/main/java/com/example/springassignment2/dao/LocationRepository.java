@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface LocationRepository extends JpaRepository<Location, Integer>
 {
+    //finding locations given a job id
     public List<Location> findLocationsByJobsId(int theId);
 }

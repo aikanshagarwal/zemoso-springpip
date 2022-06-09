@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CommuteRepository extends JpaRepository<Commute, Integer>
 {
+    //finding commute options given the job id
     List<Commute> findByJobId(int theId);
 }

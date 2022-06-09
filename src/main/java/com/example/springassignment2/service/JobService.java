@@ -15,7 +15,6 @@ public interface JobService
 
     public void deleteById(int theId);
 
-
     public List<Job> findByLocation(String location);
 
     List<Job> findBySkill(String skill);

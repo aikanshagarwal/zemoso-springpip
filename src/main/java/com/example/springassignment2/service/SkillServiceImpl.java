@@ -19,9 +19,9 @@ public class SkillServiceImpl implements SkillService{
     }
 
     @Override
-    public List<Skill> findAll() {
+    public List<Skill> findAll()
+    {
             return skillRepository.findAll();
-
     }
 
     @Override

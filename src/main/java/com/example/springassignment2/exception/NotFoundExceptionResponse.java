@@ -1,17 +1,17 @@
 package com.example.springassignment2.exception;
 
-public class JobNotFoundExceptionResponse {
+public class NotFoundExceptionResponse {
 
     private int status;
     private String message;
     private long timestamp;
 
-    public JobNotFoundExceptionResponse()
+    public NotFoundExceptionResponse()
     {
 
     }
 
-    public JobNotFoundExceptionResponse(int status, String message, long timestamp) {
+    public NotFoundExceptionResponse(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;

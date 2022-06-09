@@ -20,11 +20,10 @@ public class LocationServiceImpl implements LocationService{
     }
 
     @Override
-    public List<Location> findAll() {
+    public List<Location> findAll()
+    {
             return locationRepository.findAll();
-
     }
-
 
     @Override
     public Location save(Location theLocation) {

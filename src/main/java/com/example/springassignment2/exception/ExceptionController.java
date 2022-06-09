@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController
 {
-    @ExceptionHandler(value = JobNotFoundException.class)
-    public ResponseEntity<JobNotFoundExceptionResponse> customException(JobNotFoundException exc)
+    @ExceptionHandler(value = NotFoundException.class)
+    public ResponseEntity<NotFoundExceptionResponse> customException(NotFoundException exc)
     {
-        JobNotFoundExceptionResponse error = new JobNotFoundExceptionResponse();
+        NotFoundExceptionResponse error = new NotFoundExceptionResponse();
 
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setMessage(exc.getMessage());
         error.setTimestamp(System.currentTimeMillis());
 
-        //return responseentity
+        //return response entity
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
+
 
     @ExceptionHandler
     public ResponseEntity<Object> globalException(Exception exc)

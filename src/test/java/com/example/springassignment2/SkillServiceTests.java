@@ -29,12 +29,6 @@ class SkillServiceTests
     @Mock
     private SkillRepository skillRepository;
 
-    @Mock
-    private JobRepository jobRepository;
-
-    @InjectMocks
-    private JobServiceImpl jobService;
-
     @InjectMocks
     private SkillServiceImpl skillService;
 
@@ -61,17 +55,16 @@ class SkillServiceTests
     @DisplayName("JUnit test for saveSkill method")
     @Test
     void givenSkillObject_whenSaveSkill_thenReturnSkillObject(){
+
         // given - precondition or setup
-
         given(skillRepository.save(skill)).willReturn(skill);
-
         System.out.println(skillRepository);
         System.out.println(skillService);
 
         // when -  action or the behaviour that we are going test
         Skill savedSkill = skillService.save(skill);
-
         System.out.println(savedSkill);
+
         // then - verify the output
         assertThat(savedSkill).isNotNull();
     }
@@ -79,8 +72,8 @@ class SkillServiceTests
     @DisplayName("JUnit test for getAllSkills method")
     @Test
     void givenSkillsList_whenGetAllSkills_thenReturnSkillsList(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         Skill skill1 =  skill.builder()
                 .id(1)
                 .name("Java")
@@ -97,7 +90,7 @@ class SkillServiceTests
 
     @DisplayName("JUnit test for getSkillsByJobId method")
     @Test
-    void givenJobId_whenGetSkillsbyJobId_thenReturnSkillObject(){
+    void whenGetSkillsByJobId_thenReturnSkillObject(){
 
         // when
         List<Skill> savedSkill = skillService.findSkillsByJobsId(1);

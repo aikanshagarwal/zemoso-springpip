@@ -29,12 +29,6 @@ class CommuteServiceTests
     @Mock
     private CommuteRepository commuteRepository;
 
-    @Mock
-    private JobRepository jobRepository;
-
-    @InjectMocks
-    private JobServiceImpl jobService;
-
     @InjectMocks
     private CommuteServiceImpl commuteService;
 
@@ -61,8 +55,8 @@ class CommuteServiceTests
     @DisplayName("JUnit test for saveCommute method")
     @Test
     void givenCommuteObject_whenSaveCommute_thenReturnCommuteObject(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         given(commuteRepository.save(commute)).willReturn(commute);
 
         System.out.println(commuteRepository);
@@ -70,8 +64,8 @@ class CommuteServiceTests
 
         // when -  action or the behaviour that we are going test
         Commute savedCommute = commuteService.save(commute);
-
         System.out.println(savedCommute);
+
         // then - verify the output
         assertThat(savedCommute).isNotNull();
     }
@@ -80,6 +74,7 @@ class CommuteServiceTests
     @DisplayName("JUnit test for getCommuteById method")
     @Test
     void givenCommuteId_whenGetCommuteById_thenReturnCommuteObject(){
+
         // given
         given(commuteRepository.findById(1)).willReturn(Optional.of(commute));
 
@@ -93,9 +88,9 @@ class CommuteServiceTests
     @DisplayName("JUnit test for deleteCommute method")
     @Test
     void givenCommuteId_whenDeleteCommute_thenNothing(){
+
         // given - precondition or setup
         int commuteId = 1;
-
         willDoNothing().given(commuteRepository).deleteById(commuteId);
 
         // when -  action or the behaviour that we are going test
@@ -107,7 +102,7 @@ class CommuteServiceTests
 
     @DisplayName("JUnit test for getCommuteByJobId method")
     @Test
-    void givenJobId_whenGetCommutesbyJobId_thenReturnCommuteObject(){
+    void whenGetCommutesByJobId_thenReturnCommuteObject(){
 
         // when
         List<Commute> savedCommute = commuteService.findByJobId(1);

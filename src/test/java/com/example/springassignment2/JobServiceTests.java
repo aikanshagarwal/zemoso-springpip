@@ -36,24 +36,11 @@ class JobServiceTests
     @Mock
     private JobRepository jobRepository;
 
-    @Mock
-    private LocationRepository locationRepository;
-
-    @Mock
-    private SkillRepository skillRepository;
-
     @InjectMocks
     private JobServiceImpl jobService;
 
-    @InjectMocks
-    private SkillServiceImpl skillService;
-
-    @InjectMocks
-    private LocationServiceImpl locationService;
-
     private Job job;
     private Location location;
-
     private Skill skill;
 
     @BeforeEach
@@ -68,17 +55,16 @@ class JobServiceTests
     @DisplayName("JUnit test for saveJob method")
     @Test
     void givenJobObject_whenSaveJob_thenReturnJobObject(){
+
         // given - precondition or setup
-
         given(jobRepository.save(job)).willReturn(job);
-
         System.out.println(jobRepository);
         System.out.println(jobService);
 
         // when -  action or the behaviour that we are going test
         Job savedJob = jobService.save(job);
-
         System.out.println(savedJob);
+
         // then - verify the output
         assertThat(savedJob).isNotNull();
     }
@@ -86,8 +72,8 @@ class JobServiceTests
     @DisplayName("JUnit test for getAllJobs method")
     @Test
     void givenJobsList_whenGetAllJobs_thenReturnJobsList(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         Job job1 = job.builder()
                 .id(1)
                 .title("Frontend Developer")
@@ -106,6 +92,7 @@ class JobServiceTests
     @DisplayName("JUnit test for getJobById method")
     @Test
     void givenJobId_whenGetJobById_thenReturnJobObject(){
+
         // given
         given(jobRepository.findById(1)).willReturn(Optional.of(job));
 
@@ -119,9 +106,9 @@ class JobServiceTests
     @DisplayName("JUnit test for deleteJob method")
     @Test
     void givenJobId_whenDeleteJob_thenNothing(){
+
         // given - precondition or setup
         int jobId = 1;
-
         willDoNothing().given(jobRepository).deleteById(jobId);
 
         // when -  action or the behaviour that we are going test
@@ -131,11 +118,11 @@ class JobServiceTests
         verify(jobRepository, times(1)).deleteById(jobId);
     }
 
-    @DisplayName("JUnit test for getJobsbyLocation method")
+    @DisplayName("JUnit test for getJobsByLocation method")
     @Test
     void givenLocation_whenGetJobsByLocation_thenReturnJobsList(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         Location location1 = location.builder()
                 .id(1)
                 .name("Kolkata")
@@ -160,11 +147,11 @@ class JobServiceTests
         assertThat(jobList).isNotNull().hasSize(2);
     }
 
-    @DisplayName("JUnit test for getJobsbySkill method")
+    @DisplayName("JUnit test for getJobBySkill method")
     @Test
     void givenSkill_whenGetJobsBySkill_thenReturnJobsList(){
-        // given - precondition or setup
 
+        // given - precondition or setup
         Skill skill1 = skill.builder()
                 .id(1)
                 .name("Java")
@@ -189,11 +176,11 @@ class JobServiceTests
         assertThat(jobList).isNotNull().hasSize(2);
     }
 
-    @DisplayName("JUnit test for getJobsbySkillandLocation method")
+    @DisplayName("JUnit test for getJobsBySkillandLocation method")
     @Test
-    void givenSkillandLocation_whenGetJobsBySkillandLocation_thenReturnJobsList(){
-        // given - precondition or setup
+    void givenSkillAndLocation_whenGetJobsBySkillAndLocation_thenReturnJobsList(){
 
+        // given - precondition or setup
         Skill skill1 = skill.builder()
                 .id(1)
                 .name("Java")
